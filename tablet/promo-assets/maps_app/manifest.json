@@ -1,0 +1,16 @@
+﻿{
+    "name": "waxcloud",
+    "description": "Just plug in your Soundcloud account and within seconds you'll have youe entire collection on vinyl.",
+    "version": "1.2.0",
+    "app": {
+        "urls": [
+            "*://www.nathanjamal.com/myrecords/" 
+        ],
+        "launch": {
+            "web_url": "http://www.nathanjamal.com/myrecords/" 
+        } 
+    },
+    "icons": {
+        "128": "icon128.png" 
+    }
+}

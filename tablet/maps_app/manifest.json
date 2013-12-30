@@ -1,0 +1,16 @@
+﻿{
+    "name": "waxcloud",
+    "description": "Experience Soundcloud with all the romance of a vinyl collection.",
+    "version": "2.0.0",
+    "app": {
+        "urls": [
+            "http://www.waxcloud.com/" 
+        ],
+        "launch": {
+            "web_url": "http://www.waxcloud.com/" 
+        } 
+    },
+    "icons": {
+        "128": "icon128.png" 
+    }
+}
