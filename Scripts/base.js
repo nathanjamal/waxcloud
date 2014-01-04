@@ -3,9 +3,9 @@
     scToken,
     userId,
     baseUrl = 'http://www.waxcloud.com/',
-    baseUrl = 'http://waxcloud.dev/',//testinh
+    //baseUrl = 'http://waxcloud.dev/',//testinh
     clientId = 'kcnatAysjQ6U57cdPFVHCw',
-    clientId = 'ea0389f188e2f63f1db2e6604ca86bf9',//testinh
+    //clientId = 'ea0389f188e2f63f1db2e6604ca86bf9',//testinh
     delTime,
     vinylCount = 0,
     sleeveArray = ["sleeve","sleeve2","sleeve3","sleeve4","sleeve5","sleeve6"],
@@ -799,7 +799,7 @@ $(document).ready(function () {
             $(this).val('Search for some music');
         }
     }).keypress(function (e) {
-        var q = $(this).val();
+        var q = encodeURIComponent($(this).val());
         if (e.keyCode == 13) {
             window.location = baseUrl + 'board.html#/q=' + q;
             searchSoundcloud(q);
