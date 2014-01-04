@@ -768,9 +768,21 @@ New ----------------------------------------------------------*/
         padding: 0 10px;
     }
 
-    .fb-like{
+    #home .fibo-960-s{
+        float: left;
+        width: 366px;
+        border-left: solid 1px #232323;
         margin-top: 40px;
+        height: 560px;
     }
+
+    .fibo-960-s .fb-like{
+        margin: 20px 0 0 20px;
+    }
+
+        .fibo-960-s .fb-like #u_0_2{
+            color: #ccc;
+        }
 
 
 /* ==========================================================================

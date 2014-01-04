@@ -1,4 +1,5 @@
 ﻿var key,
+    retina = window.devicePixelRatio > 1,
     scToken,
     userId,
     baseUrl = 'http://www.waxcloud.com/',
@@ -543,6 +544,10 @@ var Soundcloud = {
 
         if (!!data.artwork_url) {
             img = data.artwork_url;
+            //get larger if retina
+            if(retina)
+                img = img.replace('large','t300x300');
+
             var record = '<div style="' + executeFunctionByName(patternFunc, window, vinylCount) + '" id="' + data.id + '" data-perma="' + data.permalink_url + '" data-stream="' + data.stream_url + '" data-title="' + tagTtl + '" data-artist="' + tagArtist + '" data-genre="' + tagGenre + '" data-label="' + tagLabel + '" class="recordSleeveBk '+customCursor+'"><img class="record" id="record' + data.id + '" src="' + baseUrl + 'img/vinyl.png" alt="" /><div class="recordSleeveFrt"><img src="' + img + '" width="144" height="144" alt="" /><img class="tex" src="' + baseUrl + 'img/' + sleeve + '.png" alt="" /></div></div>';
         } else {
             var record = '<div style="' + executeFunctionByName(patternFunc, window, vinylCount) + '" id="' + data.id + '" data-perma="' + data.permalink_url + '" data-stream="' + data.stream_url + '" data-title="' + tagTtl + '" data-artist="' + tagArtist + '" data-genre="' + tagGenre + '" data-label="' + tagLabel + '" class="recordSleeveBk '+customCursor+'"><img class="record" id="record' + data.id + '" src="' + baseUrl + 'img/vinyl.png" alt="" /><div class="recordSleeveFrt whiteLabel"><span style="-webkit-transform:rotate(' + randomFromTo(-3, 3) + 'deg);font-size:' + randomFromTo(19, 23) + 'px;" class="artist">' + data.user.username + '</span><span class="album"  style="-webkit-transform:rotate(' + randomFromTo(-4, 4) + 'deg);font-size:' + randomFromTo(19, 22) + 'px;">' + data.title + '</span><img class="tex" src="' + baseUrl + 'img/' + sleeve + '.png" alt="" /></div></div>';
