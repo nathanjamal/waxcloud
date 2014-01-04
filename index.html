@@ -44,6 +44,15 @@
     </head>
 <body>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=105834392861915";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div id="bar">
     <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
@@ -57,24 +66,34 @@
 </div>
     
     <section class="nine60">
-        <header id="hero-holder">
-            <img id="hero" width="320" height="250" src="img/hero.png" alt=""/>
-        </header>
+        <div class="fibo-960-l">
 
-        <div class="three20">
-            <a href="#" id="init-connect">
-                <img src="img/btn-connect-sc-l.png" />
-            </a>
-            <p id="or">Or</p>
-            <input type="text" id="home-search" value="Search for some music" />
+            <header>
+                
+                <h1 id="home-logo" class="hide-text">Waxcloud</h1>
 
-            <h2 id="app-desc">
-            WAXCLOUD puts the romance back into the digital music experience. <br />Take anything from Soundcloud&#39;s library and add it to your record collection. Spend some quality time sifting through all your vinyl and put that warm fuzzy feeling back into mp3s. <br />Go on... It will make your dad proud! 
-            </h2>
+            </header>
+
+            <p class="home-copy">
+                Waxcloud puts the romance back into the digital music experience. Take anything from Soundcloud&#39;s library and add it to your record collection. Spend some quality time sifting through all your vinyl and put that warm fuzzy feeling back into mp3s. Go on . . . <br />It will make your dad proud!</p>
+
+            <div class="three20">
+                <a href="#" id="init-connect">
+                    <!-- <img src="img/btn-connect-sc-l.png" /> -->
+                    <span>&nbsp;</span>
+                    Connect with SoundCloud
+                </a>
+                <p id="or">Or</p>
+                <input type="text" id="home-search" value="Search for some music" />
+
+            </div>
+
         </div>
 
-        <aside id="share-cont">
+        <aside class="fibo-960-s">
         
+            <div class="fb-like" data-href="http://waxcloud.com/" data-width="340" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+
         </aside>
     </section>
 
