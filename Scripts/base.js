@@ -601,7 +601,7 @@ $(document).ready(function () {
     $("#login").click(function(e){
         e.preventDefault();
         
-        Soundcloud.Login();
+        Soundcloud.Login('board.html');
     });
 
     $("#logout").click(function () {
