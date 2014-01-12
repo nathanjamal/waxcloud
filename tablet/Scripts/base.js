@@ -12,16 +12,16 @@ var baseUrl = 'http://www.kindrdapp.com/waxcloud/tablet/';
 
 var delTime;
 
-function fff() {
-    if (navigator.userAgent.indexOf("Firefox") != -1) {
-        if (top === self) {
-            window.location = baseUrl + 'ff.html';
-        } else {
-            window.location = baseUrl + 'facebook/ff.html';
-        }
-    }
-}
-fff();
+// function fff() {
+//     if (navigator.userAgent.indexOf("Firefox") != -1) {
+//         if (top === self) {
+//             window.location = baseUrl + 'ff.html';
+//         } else {
+//             window.location = baseUrl + 'facebook/ff.html';
+//         }
+//     }
+// }
+// fff();
 
 //check for search hash
 var hash = window.location.hash;
@@ -108,7 +108,7 @@ function searchSoundcloud(q,place) {
         }
         chromeIe();
         var loc = (place) ? 'home' : 'desk';
-        track('search', loc, q);
+        Tracking.Google('search', loc, q);
     });
 }
 
@@ -284,7 +284,7 @@ function setArm() {
             //alert($('#playerEngine')[0].readyState);
             var loc = (window.location.href.indexOf('/single/') > 0) ? 'single' : 'desk';
             var name = $('#player').attr('data-current');
-            track('play', loc, name);
+            Tracking.Google('play', loc, name);
         }, 1000);
     });
 }
@@ -407,7 +407,7 @@ function clearBoard() {
     $('div.recordSleeveBk').remove();
 }
 
-function track(type, loc, name) {
+function Tracking.Google(type, loc, name) {
         _gaq.push(['_trackEvent', type, loc, name]);
 }
 
@@ -557,7 +557,7 @@ $(document).ready(function () {
             loc = (url.indexOf('facebook.com') > 0) ? 'fb' : 'twtr';
         }
 
-        track('share', loc, name);
+        Tracking.Google('share', loc, name);
         return false;
     });
 

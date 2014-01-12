@@ -14,7 +14,6 @@ var single = 'https://api.soundcloud.com/tracks/'+trackId+'.json?client_id='+ cl
 
 $.getJSON(single + "&format=json&callback=?", function (data) {
     createAndPlaceOne(data);
-    chromeIe();
 });
 
 

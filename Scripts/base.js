@@ -35,16 +35,16 @@
     };
 
 
-function fff() {
-    if (navigator.userAgent.indexOf("Firefox") != -1) {
-        if (top === self) {
-            window.location = baseUrl + 'ff.html';
-        } else {
-            window.location = baseUrl + 'facebook/ff.html';
-        }
-    }
-}
-fff();
+// function fff() {
+//     if (navigator.userAgent.indexOf("Firefox") != -1) {
+//         if (top === self) {
+//             window.location = baseUrl + 'ff.html';
+//         } else {
+//             window.location = baseUrl + 'facebook/ff.html';
+//         }
+//     }
+// }
+// fff();
 
 //check for search hash
 var hash = window.location.hash;
@@ -69,7 +69,7 @@ function searchSoundcloud(q,place) {
         }
 
         var loc = (place) ? 'home' : 'desk';
-        track('search', loc, q);
+        Tracking.Google('search', loc, q);
     });
 }
 
@@ -83,7 +83,7 @@ function listResults(data) {
 
 
 function flapped(i) {
-    
+  
     i = parseInt(i);
 
     var output;
@@ -245,7 +245,9 @@ function setArm() {
                 $('#playerEngine')[0].play();
                 var loc = (window.location.href.indexOf('/single/') > 0) ? 'single' : 'desk';
                 var name = $('#player').attr('data-current');
-                track('play', loc, name);
+                
+                Tracking.Google('play', loc, name);
+
             }, 1000);
 
         } 
@@ -337,7 +339,11 @@ function setRecord(recordSleeveBk) {
     var stream = recordSleeveBk.attr('data-stream');
     var record = recordSleeveBk.children('img.record');
     var name = recordSleeveBk.attr('data-title') + ' by ' + recordSleeveBk.attr('data-artist');
-    var perma = 'http://www.waxcloud.com/single/#/' + name.replace(/ /g, '-').replace(/\//g, '-') + '/' + recordSleeveBk.attr('id');
+    var slug = name.replace(/-/g, ' ')
+                .replace(/\//g, ' ')
+                .replace(/   /g, ' ')
+                .replace(/  /g, ' ');
+    var perma = 'http://www.waxcloud.com/single/#/' + slug + '/' + recordSleeveBk.attr('id');
     setSocial(name, perma);
     
     $('#player').attr('data-current',name)
@@ -358,6 +364,9 @@ function setRecord(recordSleeveBk) {
         top: (commonEle.win.height() - 167)+'px',
         opacity: '0.8'
     });
+
+    //send tracl to latest plays
+    Tracking.Plays(recordSleeveBk.attr('id'), name, slug, recordSleeveBk.children('div.recordSleeveFrt').children('img').eq(0).attr('src') );   
 }
 
 function zindexShuffle(z) {
@@ -386,9 +395,6 @@ function clearBoard() {
     $('div.recordSleeveBk').remove();
 }
 
-function track(type, loc, name) {
-        _gaq.push(['_trackEvent', type, loc, name]);
-}
 
 function appearAnimate(ele,pos){
     ele.attr('data-animating', 'true');
@@ -420,6 +426,32 @@ function removeAnimate(ele) {
         }
     );
 }
+
+var Tracking = {
+
+    Google: function(type, loc, name) {
+        _gaq.push(['_trackEvent', type, loc, name]);
+    },
+
+    Plays: function(id, name, slug, img) {
+        var base = (window.location.href.indexOf('http://www.')==0)? 'http://www.waxcloud.com/' : 'http://waxcloud.com/';
+
+        $.post(
+            base+"data-send.php",
+            {
+                id: id,
+                name: name,
+                slug: slug,
+                img: img
+            },
+            function(data){
+                //console.log(data);
+            }
+        );
+
+    }
+
+};
 
 var Soundcloud = {
 
@@ -574,6 +606,68 @@ var Soundcloud = {
         vinylCount++;
     }
 
+};
+
+var Homepage = {
+
+    Get_latest_plays: function(){
+
+        var base = (window.location.href.indexOf('http://www.')==0)? 'http://www.waxcloud.com/' : 'http://waxcloud.com/';
+
+        $.get(
+            base+'get-data.php',
+            function(data){
+                
+                //build list
+                var list = $('<ol></ol>');
+
+                list.addClass('latest-plays');
+
+                //add rows
+                var i = 0;
+                while(i < 5){
+                    var row = data[i];
+
+                    var li = '<li id="'+row.id+'">'+
+                        '<div class="li-record">'+
+                            '<img class="li-disc" src="" alt="" >'+
+                            '<img class="li-sleave" src="'+row.img.replace('t300x300','t67x67')+'" alt="" >'+
+                        '</div>'+
+                        '<p>'+row.name+'</p>'+
+                        '<div class="clear-both"></div>'+
+                    '</li>';
+
+                    list.append(li);
+
+                    i++;
+                }
+
+                $('#latest').children('p').replaceWith(list);
+
+                //add click events
+                Homepage.Bind_latest_plays();
+            },
+            'json'
+        );
+
+    },
+
+    Bind_latest_plays: function(){
+
+        $('aside.fibo-960-s','#home').on('click', 'li', function(){
+
+            //build link
+            var id = $(this).attr('id'),
+                slug = encodeURIComponent( $(this).children('p').text() ),
+                link = 'http://www.waxcloud.com/single/#/' + slug + '/' + id;
+
+                window.location = link;
+
+            Tracking.Google('click', 'latest plays', $(this).children('p').text());
+
+        });
+
+    }
 
 };
 
@@ -612,6 +706,9 @@ $(document).ready(function () {
     //check if we have been redirected from SC. if so, init user data
     if (window.location.hash.indexOf('access_token') > 0)
         Soundcloud.Init_new_user();
+
+    if( $('#home').length )
+        Homepage.Get_latest_plays();
 
 
     $("#player").droppable({
@@ -730,7 +827,7 @@ $(document).ready(function () {
             loc = (url.indexOf('facebook.com') > 0) ? 'fb' : 'twtr';
         }
 
-        track('share', loc, name);
+        Tracking.Google('share', loc, name);
         return false;
     });
 

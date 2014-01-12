@@ -784,6 +784,54 @@ New ----------------------------------------------------------*/
             color: #ccc;
         }
 
+    #latest{
+        min-height: 350px;
+        padding-left: 20px;
+    }
+
+    #latest h2{
+        font-family: 'FolksHeavy';
+        font-size: 21px;
+        color: #ccc;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .latest-plays{}
+
+        .latest-plays li{
+            margin-bottom: 20px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+            .li-record{
+                float: left;
+                width: 40px;
+                height: 40px;
+                position: relative;
+            }
+
+                .li-disk,
+                .li-sleave{
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+
+            .latest-plays p{
+                max-width: 280px;
+                font-size: 12px;
+                line-height: 1.1em;
+                float: left;
+                margin-left: 20px;
+                color: #bbb;
+            }
+
+            .latest-plays li:hover p{color: #ddd;}
+
 
 /* ==========================================================================
    Helper classes
