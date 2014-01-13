@@ -614,8 +614,11 @@ var Homepage = {
 
         var base = (window.location.href.indexOf('http://www.')==0)? 'http://www.waxcloud.com/' : 'http://waxcloud.com/';
 
+        var d = new Date();
+        var n = d.getTime();
+
         $.get(
-            base+'get-data.php',
+            base+'get-data.php?'+n,
             function(data){
                 
                 //build list
